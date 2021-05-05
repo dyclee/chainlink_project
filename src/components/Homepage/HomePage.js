@@ -14,7 +14,9 @@ export function HomePage({feed}) {
             </div>
             <div className="homepage_feed_container">
                 {feed.map((info) => {
-                    <FeedBox info={info} />
+                    return (<>
+                        <FeedBox info={info} />
+                    </>)
                 })}
             </div>
         </div>
