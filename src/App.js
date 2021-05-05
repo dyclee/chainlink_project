@@ -34,7 +34,8 @@ function App() {
         let arr = [];
         let obj = {};
 
-        for (let i = 0; i < feedData.length; i++) {
+        // for (let i = 0; i < feedData.length; i++) {
+        for (let i = 0; i < 6; i++) {
           let specificFeed = feedData[i];
 
           let contract = new ethers.Contract(specificFeed.contractAddress, ABI, infuraProvider);
