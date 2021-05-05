@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
 
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -16,7 +15,7 @@ function App() {
   // contract functions
   const infuraProvider = new ethers.providers.InfuraProvider("homestead", "ef55027300574b6a9949149b26c16759");
 
-  const ABI: ethers.ContractInterface = [
+  const ABI = [
     'function latestAnswer() view returns (int256)',
     'function latestTimestamp() view returns (uint256)',
   ]
@@ -64,6 +63,14 @@ function App() {
           let timestamp = await contract.latestTimestamp() * 1000;
           let date = new Date(timestamp);
 
+          let valuePrefix = specificFeed.valuePrefix;
+          let lastName = specificFeed.name.slice(specificFeed.name.length - 3)
+          if (lastName === "USD") {
+            valuePrefix = "$"
+          } else if (lastName === "ETH") {
+            valuePrefix = "Ξ"
+          }
+
           let dataObj = {
             "id": i,
             "name": specificFeed.name,
@@ -71,7 +78,7 @@ function App() {
             "threshold": specificFeed.threshold,
             "heartbeat": specificFeed.heartbeat,
             "lastUpdate": date,
-            "valuePrefix": specificFeed.valuePrefix,
+            "valuePrefix": valuePrefix,
           }
           obj[i] = dataObj;
           arr.push(dataObj);

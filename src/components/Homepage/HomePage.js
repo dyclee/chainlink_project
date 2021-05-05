@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FeedBox } from './FeedBox';
 
+import '../../styles/homepage.css';
+
 export function HomePage({feed}) {
     // const [feeds, setFeeds] = useState([]);
 
@@ -13,11 +15,13 @@ export function HomePage({feed}) {
                 Price Feeds
             </div>
             <div className="homepage_feed_container">
-                {feed.map((info) => {
-                    return (<>
-                        <FeedBox info={info} />
-                    </>)
-                })}
+                <div className="feed_grid">
+                    {feed.map((info) => {
+                        return (<>
+                            <FeedBox info={info} />
+                        </>)
+                    })}
+                </div>
             </div>
         </div>
     </>)
