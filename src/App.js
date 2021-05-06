@@ -101,7 +101,6 @@ function App() {
           feeds[i] = data;
           homeFeeds.push(data);
         }
-        console.log(homeFeeds);
         setFeed(homeFeeds);
         setFeedObj(feeds);
       }

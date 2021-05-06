@@ -1,62 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import '../../styles/feedpage.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "../../styles/feedpage.css";
 
-export function FeedPage({feedObj}) {
-    const { id } = useParams();
-    const feedData = feedObj[id];
+export function FeedPage({ feedObj }) {
+  const { id } = useParams();
+  const feedData = feedObj[id];
 
-    const countdown = () => {
-        const timeLeft = feedData.lastUpdate - new Date() + (feedData.heartbeat * 1000);
-        const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24).toLocaleString(undefined, {minimumIntegerDigits: 2});
-        const minutes = Math.floor((timeLeft / 1000 / 60) % 60).toLocaleString(undefined, {minimumIntegerDigits: 2});
-        const seconds = Math.floor((timeLeft / 1000) % 60).toLocaleString(undefined, {minimumIntegerDigits: 2});
-        let timerStr = `${hours}:${minutes}:${seconds}`;
+  const countdown = () => {
+    const timeLeft =
+      feedData.lastUpdate - new Date() + feedData.heartbeat * 1000;
+    const hours = Math.floor(
+      (timeLeft / (1000 * 60 * 60)) % 24
+    ).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+    const minutes = Math.floor(
+      (timeLeft / 1000 / 60) % 60
+    ).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+    const seconds = Math.floor((timeLeft / 1000) % 60).toLocaleString(
+      undefined,
+      { minimumIntegerDigits: 2 }
+    );
+    let timerStr = `${hours}:${minutes}:${seconds}`;
 
-        return timerStr;
+    return timerStr;
+  };
+  const [timeLeft, setTimeLeft] = useState(countdown());
 
-    }
-    const [timeLeft, setTimeLeft] = useState(countdown());
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(countdown());
+    }, 1000);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setTimeLeft(countdown());
-        }, 1000);
-
-        return () => clearTimeout(timer);
-    });
-    const lastUpdateTime = feedData.lastUpdate.toLocaleTimeString();
-    const lastUpdateDate = feedData.lastUpdate.toDateString();
-    return (<>
-        <div className="feedpage_container">
-            <div className="feedpage_header">
-                <div className="feedpage_name">
-                    {feedData.name}
-                </div>
-                <div>
-                    <p className="feedpage_info">Latest answer</p>
-                    <p className="feedpage_price">{feedData.valuePrefix} {feedData.price}</p>
-                </div>
-            </div>
-            <div className="feedpage_otherStats">
-                <div className="feedpage_leftStats">
-                    <div className="feedpage_item">
-                        <p className="feedpage_info">Threshold</p>
-                        <p className="feedpage_stat_threshold">{feedData.threshold}</p>
-                    </div>
-                    <div className="feedpage_item">
-                        <p className="feedpage_info">Heartbeat</p>
-                        <p className="feedpage_stat_heartbeat">{timeLeft}</p>
-                    </div>
-                </div>
-                <div className="feedpage_rightStats">
-                    <div className="feedpage_item">
-                        <p className="feedpage_info">Last update</p>
-                        <p className="feedpage_stat_lastUpdateTime">{lastUpdateTime}</p>
-                        <p className="feedpage_stat_lastUpdateDate">{lastUpdateDate}</p>
-                    </div>
-                </div>
-            </div>
+    return () => clearTimeout(timer);
+  });
+  const lastUpdateTime = feedData.lastUpdate.toLocaleTimeString();
+  const lastUpdateDate = feedData.lastUpdate.toDateString();
+  return (
+    <>
+      <div className="feedpage_container">
+        <div className="feedpage_header">
+          <div className="feedpage_name">{feedData.name}</div>
+          <div>
+            <p className="feedpage_info">Latest answer</p>
+            <p className="feedpage_price">
+              {feedData.valuePrefix} {feedData.price}
+            </p>
+          </div>
         </div>
-    </>)
+        <div className="feedpage_otherStats">
+          <div className="feedpage_leftStats">
+            <div className="feedpage_item">
+              <p className="feedpage_info">Threshold</p>
+              <p className="feedpage_stat_threshold">{feedData.threshold}</p>
+            </div>
+            <div className="feedpage_item">
+              <p className="feedpage_info">Last update</p>
+              <p className="feedpage_stat_lastUpdateTime">{lastUpdateTime}</p>
+              <p className="feedpage_stat_lastUpdateDate">{lastUpdateDate}</p>
+            </div>
+          </div>
+          <div className="feedpage_rightStats">
+            <div className="feedpage_item">
+              <p className="feedpage_info">Heartbeat</p>
+              <p className="feedpage_stat_heartbeat">{timeLeft}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
