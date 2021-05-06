@@ -25,7 +25,7 @@ export const getRandomFeed = async () => {
   if (getData.ok) {
     const feedData = await getData.json();
 
-    let randomIdx = Math.floor(Math.random() * feedData.length);
+    let randomIdx = Math.floor(Math.random() * (feedData.length - 1));
     let specificFeed = feedData[randomIdx];
     let contract = new ethers.Contract(
       specificFeed.contractAddress,
