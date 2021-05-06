@@ -53,15 +53,16 @@ export function FeedPage({ feedObj }) {
               <p className="feedpage_stat_threshold">{feedData.threshold}</p>
             </div>
             <div className="feedpage_item">
+              <p className="feedpage_info">Heartbeat</p>
+              <p className="feedpage_stat_heartbeat">{timeLeft}</p>
+            </div>
+          </div>
+          <div className="feedpage_divider" />
+          <div className="feedpage_rightStats">
+            <div className="feedpage_item">
               <p className="feedpage_info">Last update</p>
               <p className="feedpage_stat_lastUpdateTime">{lastUpdateTime}</p>
               <p className="feedpage_stat_lastUpdateDate">{lastUpdateDate}</p>
-            </div>
-          </div>
-          <div className="feedpage_rightStats">
-            <div className="feedpage_item">
-              <p className="feedpage_info">Heartbeat</p>
-              <p className="feedpage_stat_heartbeat">{timeLeft}</p>
             </div>
           </div>
         </div>
