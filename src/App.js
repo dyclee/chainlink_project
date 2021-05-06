@@ -35,7 +35,7 @@ function App() {
         let obj = {};
 
         // for (let i = 0; i < feedData.length; i++) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 25; i++) {
           let specificFeed = feedData[i];
 
           let contract = new ethers.Contract(specificFeed.contractAddress, ABI, infuraProvider);
@@ -61,6 +61,7 @@ function App() {
           } else {
             price = parseFloat(str).toFixed(2);
           }
+
           let timestamp = await contract.latestTimestamp() * 1000;
           let date = new Date(timestamp);
 

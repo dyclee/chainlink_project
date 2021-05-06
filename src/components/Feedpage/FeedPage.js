@@ -25,7 +25,8 @@ export function FeedPage({feedObj}) {
 
         return () => clearTimeout(timer);
     });
-    const lastUpdate = feedData.lastUpdate.toLocaleString();
+    const lastUpdateTime = feedData.lastUpdate.toLocaleTimeString();
+    const lastUpdateDate = feedData.lastUpdate.toDateString();
     return (<>
         <div className="feedpage_container">
             <div className="feedpage_header">
@@ -39,18 +40,21 @@ export function FeedPage({feedObj}) {
             </div>
             <div className="feedpage_otherStats">
                 <div className="feedpage_leftStats">
-                    <div>
+                    <div className="feedpage_item">
                         <p className="feedpage_info">Threshold</p>
                         <p className="feedpage_stat_threshold">{feedData.threshold}</p>
                     </div>
-                    <div>
+                    <div className="feedpage_item">
                         <p className="feedpage_info">Heartbeat</p>
                         <p className="feedpage_stat_heartbeat">{timeLeft}</p>
                     </div>
                 </div>
-                <div>
-                    <p className="feedpage_info">Last update</p>
-                    <p className="feedpage_stat_lastUpdate">{lastUpdate}</p>
+                <div className="feedpage_rightStats">
+                    <div className="feedpage_item">
+                        <p className="feedpage_info">Last update</p>
+                        <p className="feedpage_stat_lastUpdateTime">{lastUpdateTime}</p>
+                        <p className="feedpage_stat_lastUpdateDate">{lastUpdateDate}</p>
+                    </div>
                 </div>
             </div>
         </div>
